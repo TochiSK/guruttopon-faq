@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お問い合わせフォーム | ぐるっとポン</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Hiragino Kaku Gothic ProN','Hiragino Sans','BIZ UDPGothic','Meiryo',sans-serif;background:#f4f8f5;color:#222;-webkit-text-size-adjust:100%}
+.wrapper{max-width:680px;margin:0 auto;padding:0 0 3rem}
+.site-header{background:#1a5c3a;padding:.6rem 1.2rem;display:flex;align-items:center;gap:10px}
+.site-logo{color:#fff;font-size:15px;font-weight:700;letter-spacing:.02em}
+.site-logo span{color:#8ce4b0;font-size:12px;font-weight:400;margin-left:8px}
+.form-card{background:#fff;border:1px solid #d8e4dc;border-top:none;padding:1.2rem 1rem}
+@media(min-width:480px){.form-card{padding:1.5rem}}
+h1{font-size:17px;font-weight:700;color:#1a3d2b;margin-bottom:.4rem}
+.pre-note{background:#f0f7f3;border-left:3px solid #1a5c3a;border-radius:0 6px 6px 0;padding:.7rem 1rem;font-size:12px;color:#2d5c3f;margin-bottom:1.2rem;line-height:1.7}
+.pre-note a{color:#1a5c3a;text-decoration:underline}
+.field{margin-bottom:1rem}
+label.lbl{display:block;font-size:12px;font-weight:700;color:#333;margin-bottom:.35rem}
+.req{background:#c0392b;color:#fff;font-size:10px;font-weight:700;padding:1px 5px;border-radius:3px;margin-left:5px;vertical-align:middle}
+.opt{background:#888;color:#fff;font-size:10px;padding:1px 5px;border-radius:3px;margin-left:5px;vertical-align:middle}
+select,input[type=text],input[type=email],textarea{width:100%;border:1px solid #ccc;border-radius:6px;padding:.65rem .75rem;font-size:16px;font-family:inherit;color:#222;background:#fafafa;-webkit-appearance:none;appearance:none}
+select:focus,input:focus,textarea:focus{outline:none;border-color:#1a5c3a;box-shadow:0 0 0 2px rgba(26,92,58,.12);background:#fff}
+textarea{resize:vertical;min-height:100px;line-height:1.6;font-size:16px}
+.hint{font-size:11px;color:#777;margin-top:.3rem;line-height:1.5}
+.inline-two{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+@media(max-width:400px){.inline-two{grid-template-columns:1fr}}
+
+/* 動的エリア */
+.dynamic-block{display:none}
+.dynamic-block.show{display:block;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+
+/* 案内ボックス */
+.guide-box{border-radius:6px;padding:.8rem 1rem;font-size:13px;line-height:1.7;margin-bottom:.75rem}
+.guide-info{background:#e8f4fd;border:1px solid #b3d7f0;color:#1a5070}
+.guide-warn{background:#fff8e6;border:1px solid #f5cc70;color:#7a5800}
+.guide-ok{background:#edf7f1;border:1px solid #8ed4a8;color:#1a5c3a}
+.guide-box a{color:inherit;text-decoration:underline;font-weight:700}
+.guide-box strong{font-weight:700}
+
+.sep{border:none;border-top:1px dashed #d0e0d8;margin:1rem 0}
+
+/* ラジオ */
+.radio-group{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.4rem}
+.radio-btn{border:1px solid #ccc;border-radius:20px;padding:.45rem 1rem;font-size:13px;cursor:pointer;color:#555;background:#fafafa;user-select:none;-webkit-tap-highlight-color:rgba(0,0,0,0);transition:all .15s}
+.radio-btn input{display:none}
+.radio-btn.selected{border-color:#1a5c3a;background:#edf7f1;color:#1a5c3a;font-weight:700}
+
+/* 送信ボタン */
+.submit-btn{display:block;width:100%;background:#1a5c3a;color:#fff;border:none;border-radius:8px;padding:.9rem;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;letter-spacing:.03em;margin-top:1.2rem;-webkit-tap-highlight-color:rgba(0,0,0,0)}
+</style>
+</head>
+<body>
+<div class="wrapper">
+<div class="site-header">
+  <div class="site-logo">ぐるっとポン <span>お問い合わせフォーム（改善案）</span></div>
+</div>
+<div class="form-card">
+  <h1>お問い合わせフォーム</h1>
+  <div class="pre-note">
+    ・送信前に <a href="#">Q&amp;Aページ</a> をご確認ください。多くのご質問はこちらで解決できます。<br>
+    ・弊社（<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0f666169604f687d7b227f606121657f">[email&#160;protected]</a>）からのメールを受信できるよう、受信設定をご確認ください。
+  </div>
+
+  <div class="field">
+    <label class="lbl" for="category">お問い合わせ内容<span class="req">必須</span></label>
+    <select id="category">
+      <option value="">選択してください</option>
+      <option value="coin_exchange">コイン交換について（PayPay・nanaco・WAONなど）</option>
+      <option value="login">ログインできない・パスワードを忘れた</option>
+      <option value="member">会員情報の変更（メールアドレス・生年月日など）</option>
+      <option value="history">利用実績・持込履歴が反映されない</option>
+      <option value="card">カード登録について</option>
+      <option value="campaign">キャンペーン・キャンペーンコードについて</option>
+      <option value="weight">重量・計量の問題</option>
+      <option value="recycle">リサイクルステーションについて</option>
+      <option value="kamisama">カミガチャ・来たよ！機能について</option>
+      <option value="other">その他</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label class="lbl" for="email">メールアドレス<span class="req">必須</span></label>
+    <input type="email" id="email" placeholder="example@mail.com" autocomplete="email">
+  </div>
+
+  <div class="inline-two">
+    <div class="field">
+      <label class="lbl" for="card">カード番号<span class="opt">任意</span></label>
+      <input type="text" id="card" placeholder="0000-0000-0000-0000" inputmode="numeric">
+      <div class="hint">入力いただくと調査がスムーズです</div>
+    </div>
+    <div class="field">
+      <label class="lbl" for="store">利用スーパー<span class="req">必須</span></label>
+      <select id="store">
+        <option value="">選択してください</option>
+        <option>ヨークベニマル</option>
+        <option>みやぎ生協</option>
+        <option>コープふくしま</option>
+        <option>マックスバリュ</option>
+        <option>イオン</option>
+        <option>その他</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- コイン交換 -->
+  <div id="block-coin_exchange" class="dynamic-block">
+    <hr class="sep">
+    <div class="guide-info guide-box">
+      <strong>PayPayでメールが届かない場合：</strong>シリアルコードは事務局から再送できます。下記にその旨をご記入ください。<br>
+      <strong>システムエラーの場合：</strong>まず <a href="#">推奨環境</a> をご確認ください。
+    </div>
+    <div class="field">
+      <label class="lbl">交換先<span class="req">必須</span></label>
+      <div class="radio-group" data-name="exchange_dest">
+        <label class="radio-btn"><input type="radio" name="exchange_dest" value="paypay">PayPay</label>
+        <label class="radio-btn"><input type="radio" name="exchange_dest" value="nanaco">nanaco</label>
+        <label class="radio-btn"><input type="radio" name="exchange_dest" value="waon">WAON</label>
+        <label class="radio-btn"><input type="radio" name="exchange_dest" value="seikyo">生協ポイント</label>
+        <label class="radio-btn"><input type="radio" name="exchange_dest" value="other">その他</label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="lbl">問題の内容<span class="req">必須</span></label>
+      <div class="radio-group" data-name="coin_issue">
+        <label class="radio-btn"><input type="radio" name="coin_issue" value="no_mail">メール・コードが届かない</label>
+        <label class="radio-btn"><input type="radio" name="coin_issue" value="sys_err">システムエラーが出る</label>
+        <label class="radio-btn"><input type="radio" name="coin_issue" value="cant">交換操作ができない</label>
+        <label class="radio-btn"><input type="radio" name="coin_issue" value="not_reflected">交換したが反映されない</label>
+        <label class="radio-btn"><input type="radio" name="coin_issue" value="other">その他</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ログイン -->
+  <div id="block-login" class="dynamic-block">
+    <hr class="sep">
+    <div class="guide-warn guide-box">
+      <strong>まずお試しください：</strong><a href="#">パスワード再設定ページ</a> からパスワードリセットメールを送ることができます。それでも解決しない場合は下記をご記入ください。
+    </div>
+    <div class="field">
+      <label class="lbl">ログインできない理由（心当たりがあれば）<span class="opt">任意</span></label>
+      <div class="radio-group" data-name="login_reason">
+        <label class="radio-btn"><input type="radio" name="login_reason" value="pw_forgot">パスワードを忘れた</label>
+        <label class="radio-btn"><input type="radio" name="login_reason" value="mail_wrong">メールアドレスが分からない</label>
+        <label class="radio-btn"><input type="radio" name="login_reason" value="no_mail">再設定メールが届かない</label>
+        <label class="radio-btn"><input type="radio" name="login_reason" value="unknown">エラーが出るが理由不明</label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="lbl">登録の可能性があるメールアドレス<span class="opt">任意</span></label>
+      <input type="text" placeholder="過去に使用していたアドレスなど" inputmode="email">
+    </div>
+  </div>
+
+  <!-- 会員情報 -->
+  <div id="block-member" class="dynamic-block">
+    <hr class="sep">
+    <div class="field">
+      <label class="lbl">変更したい項目<span class="req">必須</span></label>
+      <div class="radio-group" data-name="member_type" data-sub="true">
+        <label class="radio-btn"><input type="radio" name="member_type" value="birthday">生年月日</label>
+        <label class="radio-btn"><input type="radio" name="member_type" value="email">メールアドレス</label>
+        <label class="radio-btn"><input type="radio" name="member_type" value="password">パスワード</label>
+        <label class="radio-btn"><input type="radio" name="member_type" value="other">その他</label>
+      </div>
+    </div>
+    <div id="member-sub-birthday" class="dynamic-block">
+      <div class="guide-ok guide-box">誕生月特典を受け取るには生年月日の登録が必要です。変更は事務局のみ対応可能です。下記に正しい生年月日をご記入ください。</div>
+      <div class="field">
+        <label class="lbl">正しい生年月日<span class="req">必須</span></label>
+        <input type="text" placeholder="例：1980年4月15日" inputmode="numeric">
+      </div>
+    </div>
+    <div id="member-sub-email" class="dynamic-block">
+      <div class="field">
+        <label class="lbl">変更後のメールアドレス<span class="req">必須</span></label>
+        <input type="email" placeholder="新しいメールアドレス" inputmode="email">
+      </div>
+    </div>
+    <div id="member-sub-password" class="dynamic-block">
+      <div class="guide-info guide-box">パスワード変更は <a href="#">パスワード再設定ページ</a> からもお手続きいただけます。事務局での変更をご希望の場合は、希望のパスワード（英数字混合8文字以上）をご記入ください。</div>
+      <div class="field">
+        <label class="lbl">希望のパスワード（英数字混合8文字以上）<span class="req">必須</span></label>
+        <input type="text" placeholder="例：Pass1234">
+      </div>
+    </div>
+  </div>
+
+  <!-- 利用履歴 -->
+  <div id="block-history" class="dynamic-block">
+    <hr class="sep">
+    <div class="guide-warn guide-box">
+      <strong>ご確認ください：</strong>カード登録<strong>前</strong>のご利用分は反映されない仕様です。また、反映には利用後2日程度かかる場合があります。
+    </div>
+    <div class="field">
+      <label class="lbl">ご利用日時<span class="req">必須</span></label>
+      <input type="text" placeholder="例：2026年3月15日 14時頃">
+    </div>
+    <div class="field">
+      <label class="lbl">ご利用店舗<span class="req">必須</span></label>
+      <input type="text" placeholder="例：ヨークベニマル○○店">
+    </div>
+  </div>
+
+  <!-- カード登録 -->
+  <div id="block-card" class="dynamic-block">
+    <hr class="sep">
+    <div class="guide-info guide-box">
+      <strong>カードが「申請中」のままの場合：</strong>登録したカードでリサイクルステーションをご利用後、約2日でステータスが「登録済」に切り替わります。
+    </div>
+    <div class="field">
+      <label class="lbl">カードの種類<span class="req">必須</span></label>
+      <div class="radio-group" data-name="card_type">
+        <label class="radio-btn"><input type="radio" name="card_type" value="nanaco">nanaco</label>
+        <label class="radio-btn"><input type="radio" name="card_type" value="waon">WAON</label>
+        <label class="radio-btn"><input type="radio" name="card_type" value="waon_point">WAON POINT</label>
+        <label class="radio-btn"><input type="radio" name="card_type" value="seikyo">生協カード</label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="lbl">問題の内容<span class="req">必須</span></label>
+      <div class="radio-group" data-name="card_issue">
+        <label class="radio-btn"><input type="radio" name="card_issue" value="pending">申請中のまま変わらない</label>
+        <label class="radio-btn"><input type="radio" name="card_issue" value="error">登録でエラーになる</label>
+        <label class="radio-btn"><input type="radio" name="card_issue" value="add">カードを追加したい</label>
+        <label class="radio-btn"><input type="radio" name="card_issue" value="migrate">カード番号が変わった（機種変更等）</label>
+        <label class="radio-btn"><input type="radio" name="card_issue" value="point">ポイントを引き継ぎたい</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- キャンペーン -->
+  <div id="block-campaign" class="dynamic-block">
+    <hr class="sep">
+    <div class="field">
+      <label class="lbl">問題の内容<span class="req">必須</span></label>
+      <div class="radio-group" data-name="camp_issue">
+        <label class="radio-btn"><input type="radio" name="camp_issue" value="code_error">コードを入力したがエラーになる</label>
+        <label class="radio-btn"><input type="radio" name="camp_issue" value="no_screen">入力画面が見つからない</label>
+        <label class="radio-btn"><input type="radio" name="camp_issue" value="no_coin">コインが付与されない</label>
+        <label class="radio-btn"><input type="radio" name="camp_issue" value="birthday">誕生月特典が受け取れない</label>
+        <label class="radio-btn"><input type="radio" name="camp_issue" value="other">その他</label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="lbl">キャンペーン名（分かる場合）<span class="opt">任意</span></label>
+      <input type="text" placeholder="例：3周年キャンペーン、誕生月特典など">
+    </div>
+  </div>
+
+  <!-- 重量 -->
+  <div id="block-weight" class="dynamic-block">
+    <hr class="sep">
+    <div class="guide-info guide-box">屋外設置のため、風の影響で重量がぶれることがあります。大きな差分がある場合は差分を補填させていただきます。下記をご記入ください。</div>
+    <div class="field">
+      <label class="lbl">ご利用日時<span class="req">必須</span></label>
+      <input type="text" placeholder="例：2026年3月15日 14時頃">
+    </div>
+    <div class="field">
+      <label class="lbl">ご利用店舗<span class="req">必須</span></label>
+      <input type="text" placeholder="例：ヨークベニマル○○店">
+    </div>
+    <div class="field">
+      <label class="lbl">差分の重量（おおよそ）<span class="opt">任意</span></label>
+      <input type="text" placeholder="例：約5kg" inputmode="decimal">
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:1rem">
+    <label class="lbl" for="detail">具体的な内容（絵文字使用不可）<span class="req">必須</span></label>
+    <textarea id="detail" placeholder="お問い合わせ内容をご記入ください"></textarea>
+  </div>
+
+  <button class="submit-btn" id="submit-btn">確認する</button>
+  <div class="hint" style="text-align:center;margin-top:.6rem">送信後、事務局より回答いたします（平日対応）</div>
+</div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+function showBlock(val) {
+  var blocks = document.querySelectorAll('.dynamic-block');
+  for (var i = 0; i < blocks.length; i++) {
+    blocks[i].classList.remove('show');
+  }
+  if (val) {
+    var block = document.getElementById('block-' + val);
+    if (block) block.classList.add('show');
+  }
+}
+
+function showMemberSub(val) {
+  var subs = ['birthday','email','password','other'];
+  for (var i = 0; i < subs.length; i++) {
+    var el = document.getElementById('member-sub-' + subs[i]);
+    if (el) el.classList.remove('show');
+  }
+  var target = document.getElementById('member-sub-' + val);
+  if (target) target.classList.add('show');
+}
+
+function initRadioGroups() {
+  var btns = document.querySelectorAll('.radio-btn');
+  for (var i = 0; i < btns.length; i++) {
+    (function(btn) {
+      btn.addEventListener('touchstart', function(){}, {passive:true});
+      btn.addEventListener('click', function(e) {
+        var input = btn.querySelector('input');
+        if (!input) return;
+        var name = input.name;
+        var siblings = document.querySelectorAll('.radio-btn input[name="' + name + '"]');
+        for (var j = 0; j < siblings.length; j++) {
+          siblings[j].parentNode.classList.remove('selected');
+        }
+        input.checked = true;
+        btn.classList.add('selected');
+        if (name === 'member_type') {
+          showMemberSub(input.value);
+        }
+      });
+    })(btns[i]);
+  }
+}
+
+function initCategorySelect() {
+  var sel = document.getElementById('category');
+  if (!sel) return;
+  function onCategoryChange() {
+    showBlock(sel.value);
+  }
+  sel.addEventListener('change', onCategoryChange);
+  sel.addEventListener('input', onCategoryChange);
+}
+
+function init() {
+  initCategorySelect();
+  initRadioGroups();
+  var submitBtn = document.getElementById('submit-btn');
+  if (submitBtn) {
+    submitBtn.addEventListener('click', function() {
+      alert('（モックアップのため送信されません）');
+    });
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+</script>
+</body>
+</html>

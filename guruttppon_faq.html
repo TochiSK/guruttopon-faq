@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>よくあるご質問 | ぐるっとポン</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Hiragino Kaku Gothic ProN','Hiragino Sans','BIZ UDPGothic','Meiryo',sans-serif;background:#f4f8f5;color:#222;min-height:100vh;-webkit-text-size-adjust:100%}
+.header{background:#1a5c3a;padding:14px 20px;display:flex;align-items:center;gap:12px}
+.header-logo{color:#fff;font-size:16px;font-weight:700;letter-spacing:.02em}
+.header-sub{color:#8ce4b0;font-size:12px;font-weight:400}
+.container{max-width:680px;margin:0 auto;padding:24px 16px 60px}
+.page-title{font-size:20px;font-weight:700;color:#1a3d2b;margin-bottom:4px}
+.page-sub{font-size:13px;color:#5a7a65;margin-bottom:24px}
+.breadcrumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-bottom:20px;min-height:24px}
+.bc-item{font-size:11px;color:#888;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bc-sep{color:#ccc;font-size:11px}
+.bc-current{font-size:11px;color:#1a5c3a;font-weight:700}
+.question-box{background:#fff;border-radius:12px;border:1px solid #d0e4d8;padding:20px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.question-label{font-size:12px;color:#1a5c3a;font-weight:700;letter-spacing:.06em;margin-bottom:8px}
+.question-text{font-size:16px;font-weight:700;color:#1a3d2b;line-height:1.5;margin-bottom:16px}
+.choices{display:flex;flex-direction:column;gap:8px}
+.choice-btn{background:#f4f8f5;border:1.5px solid #c0d8c8;border-radius:8px;padding:14px 16px;text-align:left;font-size:14px;color:#1a3d2b;font-family:inherit;cursor:pointer;transition:background .15s,border-color .15s;display:flex;justify-content:space-between;align-items:center;line-height:1.5;width:100%;-webkit-tap-highlight-color:rgba(0,0,0,0)}
+.choice-btn:active{background:#e4f2ea;border-color:#1a5c3a}
+.choice-btn .arrow{color:#1a5c3a;font-size:18px;flex-shrink:0;margin-left:8px}
+.answer-box{background:#fff;border-radius:12px;border:1.5px solid #8ed4a8;padding:20px;margin-bottom:16px}
+.answer-label{font-size:12px;color:#1a5c3a;font-weight:700;letter-spacing:.06em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.answer-label::before{content:'';display:inline-block;width:8px;height:8px;background:#1a5c3a;border-radius:50%;flex-shrink:0}
+.answer-title{font-size:15px;font-weight:700;color:#1a3d2b;margin-bottom:12px}
+.answer-body{font-size:14px;color:#333;line-height:1.9}
+.answer-body p{margin-bottom:10px}
+.answer-body p:last-child{margin-bottom:0}
+.answer-body strong{font-weight:700;color:#1a3d2b}
+.answer-body a{color:#1a5c3a;text-decoration:underline;word-break:break-all}
+.answer-body ol,.answer-body ul{padding-left:1.4em;margin-bottom:10px}
+.answer-body li{margin-bottom:6px}
+.note-warn{background:#fff8e6;border:1px solid #f5cc70;border-radius:8px;padding:12px 14px;font-size:13px;color:#7a5800;margin:10px 0;line-height:1.7}
+.note-info{background:#e8f4fd;border:1px solid #b3d7f0;border-radius:8px;padding:12px 14px;font-size:13px;color:#1a5070;margin:10px 0;line-height:1.7}
+.note-ok{background:#edf7f1;border:1px solid #8ed4a8;border-radius:8px;padding:12px 14px;font-size:13px;color:#1a5c3a;margin:10px 0;line-height:1.7}
+.still-help{background:#f4f8f5;border:1px dashed #a0c8b0;border-radius:8px;padding:14px 16px;margin-top:16px;font-size:13px;color:#3d6b50;line-height:1.7}
+.still-help a{color:#1a5c3a;font-weight:700;text-decoration:underline}
+.nav-btns{display:flex;gap:10px;margin-top:4px;flex-wrap:wrap}
+.btn-back{background:#fff;border:1.5px solid #c0d8c8;border-radius:8px;padding:12px 18px;font-size:13px;color:#3d6b50;font-family:inherit;cursor:pointer;-webkit-tap-highlight-color:rgba(0,0,0,0)}
+.btn-reset{background:#1a5c3a;border:none;border-radius:8px;padding:12px 18px;font-size:13px;color:#fff;font-family:inherit;cursor:pointer;-webkit-tap-highlight-color:rgba(0,0,0,0)}
+@keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.slide-in{animation:slideIn .2s ease}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="header-logo">ぐるっとポン</div>
+    <div class="header-sub">よくあるご質問 / お問い合わせ前にご確認ください</div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="page-title">何でお困りですか？</div>
+  <div class="page-sub">当てはまる項目を選ぶと、解決方法をご案内します。</div>
+  <div class="breadcrumb" id="breadcrumb"></div>
+  <div id="main-content"></div>
+  <div class="nav-btns" id="nav-btns" style="display:none">
+    <button class="btn-back" id="btn-back">◀ 前に戻る</button>
+    <button class="btn-reset" id="btn-reset">最初からやり直す</button>
+  </div>
+</div>
+
+<script>
+const tree = {
+  id: 'root',
+  q: '何でお困りですか？',
+  choices: [
+    {
+      label: 'ログインできない・パスワードを忘れた',
+      next: {
+        id: 'login',
+        q: 'どのような状況ですか？',
+        choices: [
+          {
+            label: 'パスワードを忘れた',
+            next: {
+              id: 'login_pw',
+              q: 'パスワード再設定メールは届きましたか？',
+              choices: [
+                {
+                  label: '届いた・再設定できた',
+                  answer: {
+                    title: 'パスワード再設定で解決できます',
+                    body: '<p>パスワードの再設定が完了したら、新しいパスワードでログインをお試しください。</p><div class="note-ok">ログイン後、【登録情報】＞【会員情報を変更する】からパスワードを変更することもできます。</div><p>それでもログインできない場合は、全角・半角や余分なスペースが入っていないかご確認ください。</p>'
+                  }
+                },
+                {
+                  label: 'メールが届かない',
+                  answer: {
+                    title: 'パスワード再設定メールが届かない場合',
+                    body: '<p>下記をご確認ください。</p><ol><li><strong>迷惑メールフォルダ</strong>に入っていないか確認する</li><li><strong>info@grt-pon.jp</strong> からのメールを受信できるよう、受信設定（ドメイン許可）を行う</li><li>登録時と<strong>別のメールアドレス</strong>でお試しではないか確認する</li></ol><div class="note-warn">キャリアメール（docomo・au・softbankなど）はブロックされやすいため、GmailやYahooメールでの登録をおすすめします。</div><p>上記をお試しいただいても届かない場合は、事務局でパスワードを再設定することができます。お問い合わせフォームより「カード番号」と「ご希望のパスワード（英数字混合8文字以上）」をお送りください。</p>'
+                  }
+                },
+                {
+                  label: 'まだ試していない',
+                  answer: {
+                    title: 'まずパスワード再設定をお試しください',
+                    body: '<p>ログインページの <strong>「パスワードをお忘れの場合はこちら」</strong> からパスワード再設定メールを送ることができます。</p><ol><li>ログインページを開く</li><li>「パスワードをお忘れの場合はこちら」をタップ</li><li>登録したメールアドレスを入力して送信</li><li>届いたメールのリンクから新しいパスワードを設定する</li></ol><div class="note-info">メールが届かない場合は、迷惑メールフォルダをご確認いただくか、info@grt-pon.jp からのメールを受信できるよう設定をご確認ください。</div>'
+                  }
+                }
+              ]
+            }
+          },
+          {
+            label: 'メールアドレスが分からない・間違えて登録した',
+            answer: {
+              title: 'メールアドレスが分からない場合',
+              body: '<p>登録したメールアドレスが分からない場合、<strong>カード番号</strong>をもとに事務局で調査することができます。</p><div class="note-info">カード番号（nanacoなど16桁）がお手元にある場合は、お問い合わせフォームにカード番号をご記入の上「登録メールアドレスを教えてほしい」とお送りください。</div><p>カード番号も分からない場合は、登録に使用した可能性のあるメールアドレスをすべてお送りください。調査いたします。</p>'
+            }
+          },
+          {
+            label: 'メールアドレス・パスワードは正しいはずなのにログインできない',
+            answer: {
+              title: 'ログインできない場合の確認事項',
+              body: '<p>下記をご確認ください。</p><ol><li>メールアドレスの<strong>全角・半角</strong>（@は半角）、余分なスペースが入っていないか</li><li>パスワードの<strong>大文字・小文字</strong>が正しいか</li><li>アプリの場合は<strong>再起動・再インストール</strong>をお試しください</li><li>ブラウザ版（<a href="https://grt-pon.jp/login" target="_blank">https://grt-pon.jp/login</a>）でもお試しください</li></ol><div class="note-warn">2025年9月よりブラウザ版のログインURLが変更になっています。上記URLをお使いください。</div><p>それでもログインできない場合は、お問い合わせフォームより「カード番号」をお知らせいただくと調査いたします。</p>'
+            }
+          }
+        ]
+      }
+    },
+    {
+      label: 'コイン交換について（PayPay・nanaco・WAONなど）',
+      next: {
+        id: 'coin',
+        q: '交換先はどちらですか？',
+        choices: [
+          {
+            label: 'PayPay',
+            next: {
+              id: 'coin_paypay',
+              q: 'どのような問題ですか？',
+              choices: [
+                {
+                  label: 'シリアルコードのメールが届かない',
+                  answer: {
+                    title: 'PayPayのシリアルコードメールが届かない場合',
+                    body: '<p>下記をご確認ください。</p><ol><li><strong>迷惑メールフォルダ</strong>を確認する</li><li><strong>info@grt-pon.jp</strong> からのメールを受信できるよう受信設定を行う</li><li>キャリアメール（docomo・au等）の場合、Gmailなどへの変更を検討する</li></ol><div class="note-info">上記をお試しいただいてもメールが届かない場合は、お問い合わせフォームよりご連絡ください。事務局よりシリアルコードを再送いたします。</div>'
+                  }
+                },
+                {
+                  label: 'システムエラーが出て交換できない',
+                  answer: {
+                    title: 'PayPayのシステムエラーが出る場合',
+                    body: '<p>まず下記の推奨環境をご確認ください。</p><ul><li>【PC】Windows11 / Chrome 最新版</li><li>【スマートフォン】Android 13〜15 / Chrome 最新版</li><li>【iPhone】iOS 17〜18 / Safari 最新版</li></ul><div class="note-warn">メールアプリや他のアプリからシリアルコードのURLを開くとエラーになる場合があります。端末の<strong>デフォルトブラウザ</strong>にURLを直接貼り付けてアクセスしてください。</div><p>上記をお試しいただいても解消しない場合、PayPay側のシステムが関係しているため、下記の外部窓口にお問い合わせください。</p><p><a href="https://mvc-inquiry.pointconcent.jp/hc/ja/requests/new?ticket_form_id=37154919950105" target="_blank">▶ マルチバリューコード ご利用に関するお問い合わせ</a></p>'
+                  }
+                },
+                {
+                  label: 'シリアルコードの使い方が分からない',
+                  answer: {
+                    title: 'PayPayシリアルコードの使い方',
+                    body: '<p>PayPayポイントのお受け取りには、メールで届く<strong>シリアルコードの入力</strong>が必要です。</p><ol><li>交換完了メールに記載のシリアルコードのURLを開く</li><li>PayPayアプリに遷移するので、コードを入力して受け取る</li></ol><div class="note-info">詳しい手順は <a href="https://grt-pon.jp/news/detail/224" target="_blank">こちらのページ</a> でご確認いただけます。</div>'
+                  }
+                }
+              ]
+            }
+          },
+          {
+            label: 'nanaco',
+            answer: {
+              title: 'nanacoポイントの受け取り方',
+              body: '<p>nanacoポイントに交換いただいた場合、手続きの<strong>2日後以降</strong>に「センターお預かり分」のnanacoポイントへ交換されます。</p><p>受け取り方法：<strong>レジ</strong>またはセブン銀行ATMで「残高確認」もしくは「現金チャージ」を行っていただくとお受け取りいただけます。</p><div class="note-info">詳しくは <a href="https://www.nanaco-net.jp/how-to/menu/center.html" target="_blank">nanaco公式サイト</a> をご参照ください。</div><p>機種変更でnanacoカード番号が変わった場合は、<strong>トムラ・ジャパン コールセンター（TEL: 0120-962-570）</strong>へお問い合わせください。</p>'
+            }
+          },
+          {
+            label: 'WAON・WAON POINT',
+            next: {
+              id: 'coin_waon',
+              q: 'お持ちのカードはどちらですか？',
+              choices: [
+                {
+                  label: '電子マネーWAON（6900〜から始まる番号）',
+                  answer: {
+                    title: 'WAONポイントの受け取り方',
+                    body: '<p>電子マネーWAONに交換いただいた場合、交換申請の<strong>翌月5日以降</strong>にWAONステーションまたはイオン銀行ATMにて「センターお預かりポイント」としてお受け取りいただけます。</p><div class="note-warn">ポイントの受け取りには、チャージ履歴のあるWAONカードが必要です。初めての場合は1,000円以上のチャージが必要です。</div><p>詳しくは <a href="https://www.waon.net/point/use/" target="_blank">WAON公式サイト</a> をご確認ください。解決しない場合は WAONコールセンター（0570-064-375）へお問い合わせください。</p>'
+                  }
+                },
+                {
+                  label: 'WAON POINTカード（6900〜以外）',
+                  answer: {
+                    title: 'WAON POINTの受け取り方',
+                    body: '<p>WAON POINTに交換いただいた場合、交換申請の<strong>翌月5日以降</strong>にお受け取りいただけます。</p><div class="note-info">WAON POINTカードが「登録済」になっている必要があります。カードの登録は【登録情報】＞【カードを追加登録する】から行えます。</div><p>詳しくは <a href="https://www.waon.net/point/use/" target="_blank">WAON公式サイト</a> をご確認ください。</p>'
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      label: '利用実績・持込履歴が反映されない',
+      next: {
+        id: 'history',
+        q: '当てはまる状況を選んでください',
+        choices: [
+          {
+            label: 'カードを登録する前に利用した分が反映されていない',
+            answer: {
+              title: 'カード登録前のご利用は反映されません',
+              body: '<p>誠に恐れ入りますが、ぐるっとポンでは<strong>カード登録後のご利用分のみ</strong>が実績に反映される仕様です。</p><p>カード登録前のご利用分は、システムの仕様上、反映することができません。ご了承ください。</p><div class="note-ok">今後は先にカードを登録してからリサイクルステーションをご利用ください。</div>'
+            }
+          },
+          {
+            label: '利用したはずなのに反映されていない（カードは登録済み）',
+            answer: {
+              title: '持込履歴が反映されない場合',
+              body: '<p>下記をご確認ください。</p><ol><li>ご利用から<strong>2日以上</strong>経過しているか（反映に最大2日かかります）</li><li>ぐるっとポンに登録しているカード番号と、実際にかざしたカードが<strong>同じ番号</strong>か</li><li>リサイクルステーションでカードをかざした後、<strong>「ポイントゲット」ボタン</strong>を押したか</li></ol><div class="note-warn">2日以上経過しても反映されない場合は、お問い合わせフォームより「ご利用日時」「ご利用店舗」「持込重量」をお知らせください。調査いたします。</div>'
+            }
+          },
+          {
+            label: '昨年まで反映されていたのに、最近されなくなった',
+            answer: {
+              title: '急に反映されなくなった場合',
+              body: '<p>複数のカードをお持ちの場合、<strong>別のカード番号でご利用になっている</strong>可能性があります。</p><p>よくあるケース：</p><ul><li>機種変更でnanacoのカード番号が変わった</li><li>新しいカードを作ったが、ぐるっとポンに登録していない</li><li>2つのアカウントに同じカードが登録されている</li></ul><div class="note-info">お問い合わせフォームより「カード番号」をお知らせいただくと、事務局で登録状況を調査いたします。</div>'
+            }
+          }
+        ]
+      }
+    },
+    {
+      label: '誕生月特典・生年月日について',
+      next: {
+        id: 'birthday',
+        q: 'どのような問題ですか？',
+        choices: [
+          {
+            label: '誕生月特典のコードを入れてもエラーになる',
+            answer: {
+              title: '誕生月特典のコードがエラーになる場合',
+              body: '<p>誕生月特典を受け取るには、ぐるっとポンに<strong>生年月日が登録されている</strong>必要があります。</p><ol><li>【登録情報】から生年月日が登録されているか確認する</li><li>生年月日が登録されていない、または間違っている場合は事務局での変更が必要です</li></ol><div class="note-info">生年月日の変更をご希望の場合は、お問い合わせフォームより「正しい生年月日（〇〇〇〇年〇月〇日の形式）」をお送りください。</div><p>コードの入力方法もご確認ください：半角で入力・【登録情報】＞【キャンペーンコードを入力する】から入力しているか</p>'
+            }
+          },
+          {
+            label: '生年月日を変更・登録したい',
+            answer: {
+              title: '生年月日の変更・登録',
+              body: '<p>生年月日の変更・登録は<strong>事務局のみ</strong>対応可能です（不正受け取り防止のため、ユーザー側での変更はできない仕様です）。</p><div class="note-ok">お問い合わせフォームより、<strong>正しい生年月日を「〇〇〇〇年〇月〇日」の形式</strong>でお知らせください。事務局にて変更いたします。</div><p>変更後、改めて誕生月特典のキャンペーンコードをご入力いただくと、コインをお受け取りいただけます。</p>'
+            }
+          },
+          {
+            label: 'キャンペーンコードの入力画面が見つからない',
+            answer: {
+              title: 'キャンペーンコードの入力場所',
+              body: '<p>キャンペーンコードは下記から入力できます。</p><ol><li>ぐるっとポンにログイン</li><li>【登録情報】をタップ</li><li>【キャンペーンコードを入力する】をタップ</li><li>コードを入力して【登録する】をタップ</li></ol><div class="note-warn">画面が表示されない場合は、アプリの再起動・再インストールをお試しください。それでも解決しない場合はブラウザ版（<a href="https://grt-pon.jp/login" target="_blank">https://grt-pon.jp/login</a>）からお試しください。</div>'
+            }
+          }
+        ]
+      }
+    },
+    {
+      label: 'カード登録・申請中について',
+      next: {
+        id: 'card',
+        q: 'どのような問題ですか？',
+        choices: [
+          {
+            label: 'カードが「申請中」のままで変わらない',
+            answer: {
+              title: 'カードが「申請中」のままの場合',
+              body: '<p>カードのステータスが「登録済」になるには、<strong>登録したカードでリサイクルステーション（古紙）をご利用いただく必要があります。</strong></p><ol><li>登録したカードを持ってリサイクルステーションへ</li><li>カードをかざして古紙を持ち込む</li><li>ご利用から<strong>約2日後</strong>に「登録済」に切り替わります</li></ol><div class="note-ok">初回ご利用後2日が経過すると、それ以降の実績とコインが反映されます。</div><p>すでにご利用済みで2日以上経過している場合は、お問い合わせフォームよりご連絡ください。</p>'
+            }
+          },
+          {
+            label: 'カード登録でエラーになる',
+            answer: {
+              title: 'カード登録でエラーになる場合',
+              body: '<p>ぐるっとポンに登録できるカードは、<strong>過去1年間または30日以内にリサイクルステーション（古紙）のご利用履歴があるカード</strong>です。</p><p>該当しない場合、登録エラーとなります。</p><div class="note-info">事務局でのカード登録も可能です。お問い合わせフォームよりカード番号をお知らせください。なお、登録エラー中のご利用分の遡り反映はシステム上できません。</div>'
+            }
+          },
+          {
+            label: '機種変更でカード番号が変わった',
+            answer: {
+              title: '機種変更でカード番号が変わった場合',
+              body: '<p>モバイルnanacoなど機種変更でカード番号が変わる場合があります。</p><ol><li>ぐるっとポンにログイン</li><li>【登録情報】＞【カードを追加登録する】をタップ</li><li>新しいカード番号を登録する</li></ol><div class="note-warn">新しいカードでリサイクルステーションをご利用後、約2日で「登録済」になります。それまでの利用分は反映されません。</div><p>旧カードのリサイクルポイントの引き継ぎは<strong>トムラ・ジャパン コールセンター（TEL: 0120-962-570）</strong>へお問い合わせください。</p>'
+            }
+          },
+          {
+            label: 'カードを追加登録したい',
+            answer: {
+              title: 'カードの追加登録方法',
+              body: '<p>複数のカードを登録することができます。</p><ol><li>ぐるっとポンにログイン（<a href="https://grt-pon.jp" target="_blank">https://grt-pon.jp</a>）</li><li>【登録情報】をタップ</li><li>【カードを追加登録する】をタップ</li><li>カード情報を入力して【送信する】をタップ</li></ol><div class="note-ok">登録後、そのカードでリサイクルステーションをご利用いただくと約2日でステータスが「登録済」になります。</div>'
+            }
+          }
+        ]
+      }
+    },
+    {
+      label: '利用実績の重量・計量がおかしい',
+      answer: {
+        title: '重量・計量の問題について',
+        body: '<p>リサイクルステーションは屋外に設置しているため、<strong>風の影響で重量がぶれる</strong>ことがあります。</p><p>正確に計量するためのコツ：</p><ul><li>投入後、画面が「0」に戻るまで待ってから持ち込む</li><li>投入後も数値が安定するまで少し待つ</li></ul><div class="note-info">「明らかに重量が少ない」場合は、差分のコインを付与することができます。お問い合わせフォームより下記をお知らせください。<br>・ご利用日時<br>・ご利用店舗<br>・差分の重量（約○kg）</div><p>なお、重量実績の数値を直接修正することはシステム上できません。コインのみの付与となります。</p>'
+      }
+    },
+    {
+      label: '来たよ！機能が使えない',
+      answer: {
+        title: '「来たよ！」が押せない場合',
+        body: '<p>「来たよ！」機能には<strong>位置情報の許可</strong>が必要です。下記をご確認ください。</p><p><strong>【iPhoneの場合】</strong></p><ol><li>端末の【設定】＞【プライバシー】＞【位置情報サービス】がオンになっているか確認</li><li>【設定】下部の【ぐるっとポン】＞位置情報が「このAppの使用中のみ許可」になっているか確認</li></ol><div class="note-warn">上記を確認してもボタンが押せない場合は、アプリを一度アンインストールして再インストール後、位置情報設定をやり直してください。</div><p><strong>【Androidの場合】</strong><br>端末により設定方法が異なるため、お近くの携帯ショップでご確認いただくことをおすすめします。</p>'
+      }
+    },
+    {
+      label: 'カミガチャについて',
+      answer: {
+        title: 'カミガチャについて',
+        body: '<p>カミガチャは、リサイクルステーションのご利用実績に応じてコインが付与され、そのコインで回すことができます。</p><div class="note-info"><strong>よくある質問：</strong><br>・<strong>回せない：</strong>コインが不足している可能性があります。実績を確認してください。<br>・<strong>景品が届かない：</strong>景品ガチャの当選品は後日お手続きが必要な場合があります。<br>・<strong>期限：</strong>コインに有効期限はありませんが、キャンペーン期間限定のガチャがある場合があります。</div><p>上記で解決しない場合は、お問い合わせフォームより状況をお知らせください。</p>'
+      }
+    },
+    {
+      label: 'リサイクルステーションについて',
+      answer: {
+        title: 'リサイクルステーションについて',
+        body: '<p>リサイクルステーション（古紙回収機）についてのよくある問題です。</p><ul><li><strong>機械が動かない・店が開いていない：</strong>店舗の営業時間や棚卸しにより一時的に利用できない場合があります。店舗スタッフまたは店舗の案内をご確認ください。</li><li><strong>回収品目について：</strong>回収できる品目は店舗により異なります。詳しくはリサイクルステーションの案内板またはぐるっとポンのお知らせをご確認ください。</li></ul><div class="note-info">機械のトラブルでご利用できなかった場合は、お問い合わせフォームよりご連絡ください。</div>'
+      }
+    }
+  ]
+};
+
+var navHistory = [];
+var currentNode = tree;
+
+function render() {
+  var content = document.getElementById('main-content');
+  var navBtns = document.getElementById('nav-btns');
+  renderBreadcrumb();
+  navBtns.style.display = navHistory.length > 0 ? 'flex' : 'none';
+  content.innerHTML = '';
+
+  if (currentNode.answer) {
+    var box = document.createElement('div');
+    box.className = 'answer-box slide-in';
+    box.innerHTML = '<div class="answer-label">解決策</div><div class="answer-title">' + currentNode.answer.title + '</div><div class="answer-body">' + currentNode.answer.body + '</div>';
+    content.appendChild(box);
+    var still = document.createElement('div');
+    still.className = 'still-help slide-in';
+    still.innerHTML = '上記で解決しない場合は、<a href="https://grt-pon.jp/inquiry" target="_blank">お問い合わせフォーム</a> よりご連絡ください。事務局より回答いたします（平日対応）。';
+    content.appendChild(still);
+  } else if (currentNode.choices) {
+    var box2 = document.createElement('div');
+    box2.className = 'question-box slide-in';
+    var labelText = navHistory.length === 0 ? 'ご質問' : 'ステップ ' + (navHistory.length + 1);
+    box2.innerHTML = '<div class="question-label">' + labelText + '</div><div class="question-text">' + currentNode.q + '</div>';
+    var choices = document.createElement('div');
+    choices.className = 'choices';
+    currentNode.choices.forEach(function(choice) {
+      var btn = document.createElement('button');
+      btn.className = 'choice-btn';
+      btn.innerHTML = '<span>' + choice.label + '</span><span class="arrow">›</span>';
+      btn.addEventListener('click', function() { selectChoice(choice); });
+      choices.appendChild(btn);
+    });
+    box2.appendChild(choices);
+    content.appendChild(box2);
+  }
+}
+
+function renderBreadcrumb() {
+  var bc = document.getElementById('breadcrumb');
+  bc.innerHTML = '';
+  navHistory.forEach(function(item, i) {
+    var span = document.createElement('span');
+    span.className = 'bc-item';
+    span.title = item.label;
+    span.textContent = item.label;
+    bc.appendChild(span);
+    var sep = document.createElement('span');
+    sep.className = 'bc-sep';
+    sep.textContent = '›';
+    bc.appendChild(sep);
+  });
+  if (navHistory.length > 0) {
+    var cur = document.createElement('span');
+    cur.className = 'bc-current';
+    cur.textContent = currentNode.answer ? '解決策' : currentNode.q;
+    bc.appendChild(cur);
+  }
+}
+
+function selectChoice(choice) {
+  navHistory.push({ label: choice.label, node: currentNode });
+  if (choice.answer) {
+    currentNode = { answer: choice.answer };
+  } else if (choice.next) {
+    currentNode = choice.next;
+  }
+  render();
+  window.scrollTo(0, 0);
+}
+
+function goBack() {
+  if (navHistory.length > 0) {
+    var prev = navHistory.pop();
+    currentNode = prev.node;
+    render();
+    window.scrollTo(0, 0);
+  }
+}
+
+function reset() {
+  navHistory = [];
+  currentNode = tree;
+  render();
+  window.scrollTo(0, 0);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('btn-back').addEventListener('click', goBack);
+  document.getElementById('btn-reset').addEventListener('click', reset);
+  render();
+});
+</script>
+</body>
+</html>
